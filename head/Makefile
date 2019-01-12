@@ -4,7 +4,7 @@ REPOBASE=$(HOME)/scheme
 build:
 	docker build -t $(TAG) .
 run:
-	docker run -it --rm -v $$PWD/repo:/repo -v $$PWD/wiki:/wiki -e CHICKEN_DOC_REPOSITORY=/repo -p 8080:8080 $(TAG)
+	docker run -it --rm -v $$PWD/repo:/repo -v $$PWD/wiki:/wiki -e CHICKEN_DOC_REPOSITORY=/repo -p 8080:8080 $(TAG) $(CMD)
 
 wiki:
 	ln -nsf /Users/jim/scheme/chicken-wiki wiki

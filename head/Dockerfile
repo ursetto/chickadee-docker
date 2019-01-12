@@ -43,5 +43,7 @@ RUN cd chickadee && chicken-install
 
 EXPOSE 8080
 
+COPY init.sh /usr/src
+
 CMD ["sh"]
 #CMD ["chickadee", "serve"]
