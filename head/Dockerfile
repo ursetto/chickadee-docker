@@ -2,6 +2,8 @@ FROM chicken:head
 
 WORKDIR /usr/src
 
+# Explicitly install most dependencies ahead of time so we don't need to
+# rebuild them when our source changes.
 RUN chicken-install \
         fmt \
         matchable \
@@ -11,6 +13,7 @@ RUN chicken-install \
         srfi-69 \
         sxml-transforms
 
+# html-parser
 # svnwiki-sxml
 
 # Try to split these up so a change to chickadee doesn't require a rebuild
