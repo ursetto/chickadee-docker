@@ -13,8 +13,9 @@ RUN chicken-install \
         srfi-69 \
         sxml-transforms
 
-# html-parser
-# svnwiki-sxml
+RUN chicken-install \
+        html-parser \
+        svnwiki-sxml
 
 # Try to split these up so a change to chickadee doesn't require a rebuild
 # of the world. But it will require a rebuild of all chickadee dependencies,
