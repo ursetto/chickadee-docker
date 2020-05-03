@@ -2,6 +2,8 @@ FROM chicken:5.0.0-alpine
 
 WORKDIR /usr/src
 
+# Adding svn costs 100MB.
+
 # Explicitly install most dependencies ahead of time so we don't need to
 # rebuild them when our source changes.
 RUN chicken-install \
@@ -25,6 +27,12 @@ COPY ./src/chicken-doc /usr/src/chicken-doc
 RUN cd chicken-doc && chicken-install
 COPY ./src/chicken-doc-admin /usr/src/chicken-doc-admin
 RUN cd chicken-doc-admin && chicken-install
+
+RUN chicken-install \
+        chicken-doc-html \
+        spiffy \
+        spiffy-request-vars
+
 COPY ./src/chickadee /usr/src/chickadee
 RUN cd chickadee && chicken-install
 
@@ -48,6 +56,11 @@ RUN cd chickadee && chicken-install
 EXPOSE 8080
 
 COPY init.sh /usr/src
+
+# If called directly as a command from outside the container, this should
+# possibly be set to `cat` so that the user's less can handle paging.
+# `apk add less` costs 100MB.
+ENV CHICKEN_DOC_PAGER "busybox less -E~"
 
 CMD ["sh"]
 #CMD ["chickadee", "serve"]
